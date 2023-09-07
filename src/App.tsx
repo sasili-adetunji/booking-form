@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider, Box, Center } from '@chakra-ui/react';
+import CleaningQuoteForm from './CalculatorForm';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Center>
+        <Box p={4} shadow="md" rounded="lg" bg="white" maxW="800px" w="100%">
+          <CleaningQuoteForm />
+        </Box>
+      </Center>
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
