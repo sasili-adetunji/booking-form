@@ -22,6 +22,7 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
+    Divider
 } from '@chakra-ui/react';
 import BathroomImg from './images/bathroom.jpeg'
 
@@ -38,7 +39,8 @@ const CleaningQuoteForm = () => {
     const [cleaningProduct, setCleaningProduct] = useState('standard'); // Default to Basic cleaning
 
     const [customerInfo, setCustomerInfo] = useState({
-        name: '',
+        fname: '',
+        lname: '',
         address: '',
         email: '',
         phoneNumber: '',
@@ -87,7 +89,8 @@ const CleaningQuoteForm = () => {
             case 'numKitchen':
                 setNumKitchen(isNaN(parseInt(value)) ? 0 : parseInt(value, 10));
                 break;
-            case 'name':
+            case 'fname':
+            case 'lname':
             case 'address':
             case 'email':
             case 'phoneNumber':
@@ -161,7 +164,8 @@ const CleaningQuoteForm = () => {
         setServiceFrequency('onetime');
         setSelectedDateTime(null);
         setCustomerInfo({
-            name: '',
+            lname: '',
+            fname: '',
             email: '',
             phoneNumber: '',
             address: '',
@@ -187,33 +191,115 @@ const CleaningQuoteForm = () => {
 
     return (
         <Box p={2}>
-             <Center>
+            <Center>
                 <Heading as="h1" size="lg" mb={4} mt={4}>
                     Book your home cleaning service today!
                 </Heading>
             </Center>
-            <Image src={BathroomImg} alt="Cleaning Service" w="100%" mb={10} mt={10}/>
+            <Image src={BathroomImg} alt="Cleaning Service" w="100%" mb={10} mt={10} />
             <Flex>
                 <Box flex="1">
-                    <FormControl>
-                        <FormLabel htmlFor="serviceFrequency">Frequency of Service</FormLabel>
-                        <RadioGroup
-                            value={serviceFrequency}
-                            onChange={handleServiceFrequencyChange}
-                        >
-                            <Stack>
-                                <Radio value="onetime">One-time</Radio>
-                                <Radio value="weekly">Weekly (20% off)</Radio>
-                                <Radio value="biweekly">Biweekly (15% off)</Radio>
-                                <Radio value="monthly">Monthly (10% off)</Radio>
-                            </Stack>
-                        </RadioGroup>
-                    </FormControl>
-                    <Text fontSize="lg" mb={4} mt={4}>
-                        What rooms would you like us to clean?
-                    </Text>
-                    <Stack spacing={4}>
-                        {/* Checkbox controls for rooms */}
+                    <Stack mb={2} mt={2}>
+                        <Heading as="h4" fontSize='xl'>Who you are? </Heading>
+                        <Text fontSize='sm'> This information will be used to contact you about your service. </Text>
+                    </Stack>
+                    <Stack mb={8} mt={6}>
+                        <FormControl>
+                            <FormLabel htmlFor="fname">First Name</FormLabel>
+                            <Input
+                                id="fname"
+                                name="fname"
+                                value={customerInfo.fname}
+                                onChange={(e) => handleInputChange('fname', e.target.value)}
+                            />
+                            <FormLabel htmlFor="lname">Last Name</FormLabel>
+                            <Input
+                                id="lname"
+                                name="lname"
+                                value={customerInfo.lname}
+                                onChange={(e) => handleInputChange('lname', e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <Input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={customerInfo.email}
+                                onChange={(e) => handleInputChange('email', e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
+                            <Input
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={customerInfo.phoneNumber}
+                                onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                            />
+                        </FormControl>
+                    </Stack>
+                    <hr />
+                    <Stack mb={2} mt={2}>
+                        <Heading as="h4" fontSize='xl'>Your Home </Heading>
+                        <Text fontSize='sm'> Where would you like us to clean? </Text>
+                    </Stack>
+                    <Stack mb={8} mt={6}>
+                        <FormControl>
+                            <FormLabel htmlFor="address">Address</FormLabel>
+                            <Input
+                                id="address"
+                                name="address"
+                                value={customerInfo.address}
+                                onChange={(e) => handleInputChange('address', e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="postalCode">Postal Code</FormLabel>
+                            <Input
+                                id="postalCode"
+                                name="postalCode"
+                                value={customerInfo.postalCode}
+                                onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="city">City</FormLabel>
+                            <Input
+                                id="city"
+                                name="city"
+                                value={customerInfo.city}
+                                onChange={(e) => handleInputChange('city', e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="province">Province</FormLabel>
+                            <Select
+                                id="province"
+                                name="province"
+                                value={customerInfo.province}
+                                onChange={(e) => handleInputChange('province', e.target.value)}
+                            >
+                                <option value="Alberta">Alberta</option>
+                                <option value="British Columbia">British Columbia</option>
+                                <option value="Manitoba">Manitoba</option>
+                                <option value="New Brunswick">New Brunswick</option>
+                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                                <option value="Nova Scotia">Nova Scotia</option>
+                                <option value="Ontario">Ontario</option>
+                                <option value="Prince Edward Island">Prince Edward Island</option>
+                                <option value="Quebec">Quebec</option>
+                                <option value="Saskatchewan">Saskatchewan</option>
+                            </Select>
+                        </FormControl>
+                    </Stack>
+                    <hr />
+                    <Stack mb={2} mt={2}>
+                        <Heading as="h4" fontSize='xl'>Choose your Service</Heading>
+                        <Text fontSize='sm'>Tell us about your home.</Text>
+                    </Stack>
+                    <Stack mb={8} mt={6}>
                         <FormControl>
                             <Flex align="center">
                                 <Checkbox
@@ -310,9 +396,12 @@ const CleaningQuoteForm = () => {
                                 )}
                             </Flex>
                         </FormControl>
-                        <Text fontSize="lg" mb={2}>
-                            Choose a cleaning level
-                        </Text>
+
+                        <hr />
+                        <Stack mb={2} mt={6}>
+                            <Heading as="h4" fontSize='xl'>Choose a cleaning level </Heading>
+                        </Stack>
+
                         <RadioGroup
                             value={cleaningLevel}
                             onChange={handleCleaningLevelChange}
@@ -323,101 +412,23 @@ const CleaningQuoteForm = () => {
                                 <Radio value="deep">Deep - absolutely everything, includes moving furniture, to clean under and behind</Radio>
                             </Stack>
                         </RadioGroup>
-
-                        <Text fontSize="lg" mb={2}>
-                            Cleaning product preference
-                        </Text>
-                        <RadioGroup
-                            value={cleaningProduct}
-                            onChange={handleCleaningProductsChange}
-                        >
-                            <Stack>
-                                <Radio value="standard">Standard - our standard range of cleaning product </Radio>
-                                <Radio value="organic">Organic - Our all natural organic range of cleaning products </Radio>
-                                <Radio value="byo">BYO - Supply your own, prefered cleaning products </Radio>
-                            </Stack>
-                        </RadioGroup>
-
-                        <Text fontSize="lg" mb={2} mt={2}>
-                            Your Home Address
-                        </Text>
-                        <FormControl>
-                            <FormLabel htmlFor="name">Name</FormLabel>
-                            <Input
-                                id="name"
-                                name="name"
-                                value={customerInfo.name}
-                                onChange={(e) => handleInputChange('name', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="email">Email</FormLabel>
-                            <Input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={customerInfo.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
-                            <Input
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                value={customerInfo.phoneNumber}
-                                onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="address">Address</FormLabel>
-                            <Input
-                                id="address"
-                                name="address"
-                                value={customerInfo.address}
-                                onChange={(e) => handleInputChange('address', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="postalCode">Postal Code</FormLabel>
-                            <Input
-                                id="postalCode"
-                                name="postalCode"
-                                value={customerInfo.postalCode}
-                                onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="city">City</FormLabel>
-                            <Input
-                                id="city"
-                                name="city"
-                                value={customerInfo.city}
-                                onChange={(e) => handleInputChange('city', e.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="province">Province</FormLabel>
-                            <Select
-                                id="province"
-                                name="province"
-                                value={customerInfo.province}
-                                onChange={(e) => handleInputChange('province', e.target.value)}
+                        <hr />
+                        <Stack mb={2} mt={6}>
+                            <Heading as="h4" fontSize='xl'>Cleaning product preference </Heading>
+                            <RadioGroup
+                                value={cleaningProduct}
+                                onChange={handleCleaningProductsChange}
                             >
-                                <option value="Alberta">Alberta</option>
-                                <option value="British Columbia">British Columbia</option>
-                                <option value="Manitoba">Manitoba</option>
-                                <option value="New Brunswick">New Brunswick</option>
-                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                                <option value="Nova Scotia">Nova Scotia</option>
-                                <option value="Ontario">Ontario</option>
-                                <option value="Prince Edward Island">Prince Edward Island</option>
-                                <option value="Quebec">Quebec</option>
-                                <option value="Saskatchewan">Saskatchewan</option>
-                            </Select>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel htmlFor="selectedDateTime">Choose Date and Time</FormLabel>
+                                <Stack>
+                                    <Radio value="standard">Standard - our standard range of cleaning product </Radio>
+                                    <Radio value="organic">Organic - Our all natural organic range of cleaning products </Radio>
+                                    <Radio value="byo">BYO - Supply your own, prefered cleaning products </Radio>
+                                </Stack>
+                            </RadioGroup>
+                        </Stack>
+                        <hr />
+                        <Stack>
+                            <Heading as="h4" fontSize='xl' mt={2} mb={2}>When would you like us to come? </Heading>
                             <DatePicker
                                 selected={selectedDateTime}
                                 onChange={handleDateTimeChange}
@@ -425,14 +436,31 @@ const CleaningQuoteForm = () => {
                                 timeFormat="HH:mm"
                                 timeIntervals={15}
                                 dateFormat="MMMM d, yyyy h:mm aa"
-                                placeholderText="Select Date and Time Select Date and Time Select Date and Time"
+                                placeholderText="Select Date and Time"
                                 minDate={new Date()}
                                 style={{
                                     width: '800px',
                                 }}
                             />
+                        </Stack>
+                        <hr />
+                        <Stack mb={2} mt={6}>
+                            <Heading as="h4" fontSize='xl'>How often? </Heading>
+                            <Text fontSize='sm'>It's all about matching you with the perfect clean for your home. Scheduling is flexible. Cancel or reschedule anytime</Text>
+                        </Stack>
+                        <FormControl>
+                            <RadioGroup
+                                value={serviceFrequency}
+                                onChange={handleServiceFrequencyChange}
+                            >
+                                <Stack>
+                                    <Radio value="onetime">One-time</Radio>
+                                    <Radio value="weekly">Weekly (20% off)</Radio>
+                                    <Radio value="biweekly">Biweekly (15% off)</Radio>
+                                    <Radio value="monthly">Monthly (10% off)</Radio>
+                                </Stack>
+                            </RadioGroup>
                         </FormControl>
-
                     </Stack>
                 </Box>
                 <Box w="200px" ml={4}>
@@ -441,7 +469,7 @@ const CleaningQuoteForm = () => {
                             Reset
                         </Button>
                         <Button colorScheme="teal">
-                            Submit - ${calculateQuote()}
+                            Book Now - ${calculateQuote()}
                         </Button>
                     </Flex>
                 </Box>
