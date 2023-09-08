@@ -5,8 +5,8 @@ import CleaningQuoteForm from './CalculatorForm';
 const App = () => {
   return (
     <ChakraProvider>
-      <Center>
-        <Box p={4} shadow="md" rounded="lg" bg="white" maxW="800px" w="100%">
+      <Center mb={10} mt={10}>
+        <Box p={4} shadow="md" rounded="lg" bg="white" maxW="1000px" w="100%" >
           <CleaningQuoteForm />
         </Box>
       </Center>

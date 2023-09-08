@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
     Box,
+    Center,
     Stack,
     Flex,
     FormControl,
@@ -12,6 +13,7 @@ import {
     Heading,
     Text,
     Radio,
+    Image,
     Input,
     Select,
     RadioGroup,
@@ -21,6 +23,7 @@ import {
     NumberIncrementStepper,
     NumberDecrementStepper,
 } from '@chakra-ui/react';
+import BathroomImg from './images/bathroom.jpeg'
 
 const CleaningQuoteForm = () => {
     const [showBedrooms, setShowBedrooms] = useState(false);
@@ -183,10 +186,13 @@ const CleaningQuoteForm = () => {
     };
 
     return (
-        <Box p={4}>
-            <Heading as="h1" size="lg" mb={4}>
-                Book your home cleaning service today!
-            </Heading>
+        <Box p={2}>
+             <Center>
+                <Heading as="h1" size="lg" mb={4} mt={4}>
+                    Book your home cleaning service today!
+                </Heading>
+            </Center>
+            <Image src={BathroomImg} alt="Cleaning Service" w="100%" mb={10} mt={10}/>
             <Flex>
                 <Box flex="1">
                     <FormControl>
@@ -203,7 +209,7 @@ const CleaningQuoteForm = () => {
                             </Stack>
                         </RadioGroup>
                     </FormControl>
-                    <Text fontSize="lg" mb={2}>
+                    <Text fontSize="lg" mb={4} mt={4}>
                         What rooms would you like us to clean?
                     </Text>
                     <Stack spacing={4}>
@@ -332,8 +338,8 @@ const CleaningQuoteForm = () => {
                             </Stack>
                         </RadioGroup>
 
-                        <Text fontSize="lg" mb={2}>
-                            Customer Information
+                        <Text fontSize="lg" mb={2} mt={2}>
+                            Your Home Address
                         </Text>
                         <FormControl>
                             <FormLabel htmlFor="name">Name</FormLabel>
